@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GetFileNames
 {
@@ -13,6 +9,7 @@ namespace GetFileNames
 		public static void Execute(string directoryPath, string outputPath)
 		{
 			var newFile = new StringBuilder();
+			var fullPath = new StringBuilder();
 			var fileName = string.Empty;
 			var filePaths = Directory.GetFiles(directoryPath);
 
@@ -21,10 +18,11 @@ namespace GetFileNames
 				var splitFilePath = file.Split('\\');
 				fileName = splitFilePath[splitFilePath.Length - 1];
 				newFile.AppendLine(fileName);
+				fullPath.AppendLine(file);
 			}
 
-			File.WriteAllText(outputPath, newFile.ToString());
+			File.WriteAllText(outputPath + "FileNames.txt", newFile.ToString());
+			File.WriteAllText(outputPath + "FileNamesFullPath.txt", fullPath.ToString());
 		}
-
 	}
 }
